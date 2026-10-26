@@ -16,8 +16,7 @@
       },
       "tags": [
         "JavaScript",
-        "bubble-card",
-        "dashboard-strategy"
+        "HACS"
       ],
       "pushed_at": "2026-10-26T11:40:47Z"
     },
@@ -35,9 +34,8 @@
         "en": "Energy, cameras, system, batteries."
       },
       "tags": [
-        "hacs",
-        "lovelace",
-        "lovelace-custom-card"
+        "JavaScript",
+        "HACS"
       ],
       "pushed_at": "2026-10-26T11:40:48Z"
     },
@@ -56,8 +54,7 @@
       },
       "tags": [
         "Python",
-        "custom-component",
-        "hacs"
+        "HACS"
       ],
       "pushed_at": "2026-10-26T11:48:40Z"
     },
@@ -75,8 +72,7 @@
         "en": "System warnings, away check."
       },
       "tags": [
-        "automation",
-        "blueprints"
+        "Blueprints"
       ],
       "pushed_at": "2026-10-26T11:13:36Z"
     },
