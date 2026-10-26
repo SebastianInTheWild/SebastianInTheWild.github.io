@@ -1,0 +1,142 @@
+{
+  "org": "SebastianInTheWild",
+  "items": [
+    {
+      "name": "ha-unser-zuhause",
+      "url": "https://github.com/SebastianInTheWild/ha-unser-zuhause",
+      "group": "featured",
+      "order": 1,
+      "title": {
+        "de": "Dashboard-Strategy",
+        "en": "Dashboard strategy"
+      },
+      "text": {
+        "de": "Baut die Ansichten automatisch.",
+        "en": "Generates the views automatically."
+      },
+      "tags": [
+        "JavaScript",
+        "bubble-card",
+        "dashboard-strategy"
+      ],
+      "pushed_at": "2026-10-26T11:40:47Z"
+    },
+    {
+      "name": "ha-unser-zuhause-cards",
+      "url": "https://github.com/SebastianInTheWild/ha-unser-zuhause-cards",
+      "group": "featured",
+      "order": 2,
+      "title": {
+        "de": "Karten",
+        "en": "Cards"
+      },
+      "text": {
+        "de": "Energie, Kameras, System, Batterien.",
+        "en": "Energy, cameras, system, batteries."
+      },
+      "tags": [
+        "hacs",
+        "lovelace",
+        "lovelace-custom-card"
+      ],
+      "pushed_at": "2026-10-26T11:40:48Z"
+    },
+    {
+      "name": "ha-unser-zuhause-integration",
+      "url": "https://github.com/SebastianInTheWild/ha-unser-zuhause-integration",
+      "group": "featured",
+      "order": 3,
+      "title": {
+        "de": "Integration",
+        "en": "Integration"
+      },
+      "text": {
+        "de": "Status-Sensoren, Hausmodus, Push.",
+        "en": "Status sensors, house mode, push."
+      },
+      "tags": [
+        "Python",
+        "custom-component",
+        "hacs"
+      ],
+      "pushed_at": "2026-10-26T11:48:40Z"
+    },
+    {
+      "name": "ha-unser-zuhause-blueprints",
+      "url": "https://github.com/SebastianInTheWild/ha-unser-zuhause-blueprints",
+      "group": "featured",
+      "order": 4,
+      "title": {
+        "de": "Blueprints",
+        "en": "Blueprints"
+      },
+      "text": {
+        "de": "Systemwarnungen, Abwesenheits-Check.",
+        "en": "System warnings, away check."
+      },
+      "tags": [
+        "automation",
+        "blueprints"
+      ],
+      "pushed_at": "2026-10-26T11:13:36Z"
+    },
+    {
+      "name": "HA-Teams-busy-light",
+      "url": "https://github.com/SebastianInTheWild/HA-Teams-busy-light",
+      "group": "projects",
+      "order": 10,
+      "title": {
+        "de": "Teams Busy Light",
+        "en": "Teams Busy Light"
+      },
+      "text": {
+        "de": "Zeigt den Microsoft-Teams-Status in Home Assistant und macht jede Lampe zum Besetzt-Licht – ohne Graph API und Admin-Freigabe.",
+        "en": "Shows your Microsoft Teams status in Home Assistant and turns any light into a busy light – no Graph API, no admin consent."
+      },
+      "tags": [
+        "HACS",
+        "Windows · macOS"
+      ],
+      "pushed_at": "2026-10-15T13:43:50Z"
+    },
+    {
+      "name": "homepage-agent",
+      "url": "https://github.com/SebastianInTheWild/homepage-agent",
+      "group": "projects",
+      "order": 11,
+      "title": {
+        "de": "Homepage-Agent",
+        "en": "Homepage agent"
+      },
+      "text": {
+        "de": "Gleicht das Homelab mit dem Homepage-Dashboard ab und fragt in Slack nach, ob fehlende Dienste eingetragen werden sollen.",
+        "en": "Compares the homelab with the Homepage dashboard and asks in Slack whether missing services should be added."
+      },
+      "tags": [
+        "Python",
+        "Slack",
+        "Docker"
+      ],
+      "pushed_at": "2026-10-23T13:48:47Z"
+    },
+    {
+      "name": "App_for_Family_Wichteln",
+      "url": "https://github.com/SebastianInTheWild/App_for_Family_Wichteln",
+      "group": "projects",
+      "order": 12,
+      "title": {
+        "de": "Wichtel-App",
+        "en": "Secret Santa app"
+      },
+      "text": {
+        "de": "Web-App für die jährliche Wichtel-Auslosung: Gruppen, Haushalte, lustige E-Mails und Erinnerungen nach Zeitplan.",
+        "en": "Web app for the yearly Secret Santa draw: groups, households, fun e-mails and scheduled reminders."
+      },
+      "tags": [
+        "Python",
+        "Flask"
+      ],
+      "pushed_at": "2026-10-23T10:00:15Z"
+    }
+  ]
+}

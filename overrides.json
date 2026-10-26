@@ -1,0 +1,49 @@
+{
+  "ha-unser-zuhause": {
+    "order": 1,
+    "title": { "de": "Dashboard-Strategy", "en": "Dashboard strategy" },
+    "text": { "de": "Baut die Ansichten automatisch.", "en": "Generates the views automatically." }
+  },
+  "ha-unser-zuhause-cards": {
+    "order": 2,
+    "title": { "de": "Karten", "en": "Cards" },
+    "text": { "de": "Energie, Kameras, System, Batterien.", "en": "Energy, cameras, system, batteries." }
+  },
+  "ha-unser-zuhause-integration": {
+    "order": 3,
+    "title": { "de": "Integration", "en": "Integration" },
+    "text": { "de": "Status-Sensoren, Hausmodus, Push.", "en": "Status sensors, house mode, push." }
+  },
+  "ha-unser-zuhause-blueprints": {
+    "order": 4,
+    "title": { "de": "Blueprints", "en": "Blueprints" },
+    "text": { "de": "Systemwarnungen, Abwesenheits-Check.", "en": "System warnings, away check." }
+  },
+  "HA-Teams-busy-light": {
+    "order": 10,
+    "title": { "de": "Teams Busy Light", "en": "Teams Busy Light" },
+    "text": {
+      "de": "Zeigt den Microsoft-Teams-Status in Home Assistant und macht jede Lampe zum Besetzt-Licht – ohne Graph API und Admin-Freigabe.",
+      "en": "Shows your Microsoft Teams status in Home Assistant and turns any light into a busy light – no Graph API, no admin consent."
+    },
+    "tags": ["HACS", "Windows · macOS"]
+  },
+  "homepage-agent": {
+    "order": 11,
+    "title": { "de": "Homepage-Agent", "en": "Homepage agent" },
+    "text": {
+      "de": "Gleicht das Homelab mit dem Homepage-Dashboard ab und fragt in Slack nach, ob fehlende Dienste eingetragen werden sollen.",
+      "en": "Compares the homelab with the Homepage dashboard and asks in Slack whether missing services should be added."
+    },
+    "tags": ["Python", "Slack", "Docker"]
+  },
+  "App_for_Family_Wichteln": {
+    "order": 12,
+    "title": { "de": "Wichtel-App", "en": "Secret Santa app" },
+    "text": {
+      "de": "Web-App für die jährliche Wichtel-Auslosung: Gruppen, Haushalte, lustige E-Mails und Erinnerungen nach Zeitplan.",
+      "en": "Web app for the yearly Secret Santa draw: groups, households, fun e-mails and scheduled reminders."
+    },
+    "tags": ["Python", "Flask"]
+  }
+}

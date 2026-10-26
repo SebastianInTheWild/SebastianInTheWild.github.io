@@ -222,28 +222,7 @@
         <li>House mode, push to people instead of devices</li>
         <li>Settings via menu instead of YAML</li>
       </ul>
-      <div class="repos">
-        <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause">
-          <strong>Dashboard-Strategy</strong>
-          <span lang="de">Baut die Ansichten automatisch.</span><span lang="en">Generates the views automatically.</span>
-          <em>ha-unser-zuhause ›</em>
-        </a>
-        <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause-cards">
-          <strong lang="de">Karten</strong><strong lang="en">Cards</strong>
-          <span lang="de">Energie, Kameras, System, Batterien.</span><span lang="en">Energy, cameras, system, batteries.</span>
-          <em>ha-unser-zuhause-cards ›</em>
-        </a>
-        <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause-integration">
-          <strong>Integration</strong>
-          <span lang="de">Status-Sensoren, Hausmodus, Push.</span><span lang="en">Status sensors, house mode, push.</span>
-          <em>ha-unser-zuhause-integration ›</em>
-        </a>
-        <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause-blueprints">
-          <strong>Blueprints</strong>
-          <span lang="de">Systemwarnungen, Abwesenheits-Check.</span><span lang="en">System warnings, away check.</span>
-          <em>ha-unser-zuhause-blueprints ›</em>
-        </a>
-      </div>
+      <div class="repos" id="featured-repos" aria-live="polite"></div>
     </div>
   </section>
 
@@ -252,29 +231,8 @@
       <h2 class="display"><span lang="de">Weitere Projekte</span><span lang="en">More projects</span></h2>
       <p class="lead" lang="de">Kleine Werkzeuge, die im Alltag mitlaufen.</p>
       <p class="lead" lang="en">Small tools that run quietly in the background.</p>
-      <div class="grid">
-        <a class="card" href="https://github.com/SebastianInTheWild/HA-Teams-busy-light">
-          <h3>Teams Busy Light</h3>
-          <p lang="de">Zeigt den Microsoft-Teams-Status in Home Assistant und macht jede Lampe zum Besetzt-Licht – ohne Graph API und Admin-Freigabe.</p>
-          <p lang="en">Shows your Microsoft Teams status in Home Assistant and turns any light into a busy light – no Graph API, no admin consent.</p>
-          <div class="tags"><span class="tag">HACS</span><span class="tag">Windows · macOS</span></div>
-          <span class="more" lang="de">Auf GitHub ›</span><span class="more" lang="en">On GitHub ›</span>
-        </a>
-        <a class="card" href="https://github.com/SebastianInTheWild/homepage-agent">
-          <h3>Homepage-Agent</h3>
-          <p lang="de">Gleicht das Homelab mit dem Homepage-Dashboard ab und fragt in Slack nach, ob fehlende Dienste eingetragen werden sollen.</p>
-          <p lang="en">Compares the homelab with the Homepage dashboard and asks in Slack whether missing services should be added.</p>
-          <div class="tags"><span class="tag">Python</span><span class="tag">Slack</span><span class="tag">Docker</span></div>
-          <span class="more" lang="de">Auf GitHub ›</span><span class="more" lang="en">On GitHub ›</span>
-        </a>
-        <a class="card" href="https://github.com/SebastianInTheWild/App_for_Family_Wichteln">
-          <h3 lang="de">Wichtel-App</h3><h3 lang="en">Secret Santa app</h3>
-          <p lang="de">Web-App für die jährliche Wichtel-Auslosung: Gruppen, Haushalte, lustige E-Mails und Erinnerungen nach Zeitplan.</p>
-          <p lang="en">Web app for the yearly Secret Santa draw: groups, households, fun e-mails and scheduled reminders.</p>
-          <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span></div>
-          <span class="more" lang="de">Auf GitHub ›</span><span class="more" lang="en">On GitHub ›</span>
-        </a>
-      </div>
+      <div class="grid" id="project-cards" aria-live="polite"></div>
+      <noscript><p class="sub"><a href="https://github.com/SebastianInTheWild">github.com/SebastianInTheWild</a></p></noscript>
     </div>
   </section>
 </main>
@@ -304,6 +262,57 @@
     document.querySelectorAll("[data-set-lang]").forEach(function (b) {
       b.addEventListener("click", function () { setLang(b.getAttribute("data-set-lang")); });
     });
+  })();
+
+  // Projekte aus projects.json (erzeugt von der GitHub Action aus allen Repos mit dem Topic "website")
+  (function () {
+    function el(tag, cls, text) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    }
+    // Ein Element je Sprache; der Sprachumschalter blendet das jeweils andere aus
+    function both(tag, cls, pair) {
+      if (pair.de === pair.en) return [el(tag, cls, pair.de)];
+      return ["de", "en"].map(function (l) { var e = el(tag, cls, pair[l]); e.lang = l; return e; });
+    }
+    function link(cls, url) { var a = el("a", cls); a.href = url; return a; }
+
+    function featuredCard(p) {
+      var a = link("repo", p.url);
+      both("strong", null, p.title).concat(both("span", null, p.text)).forEach(function (n) { a.append(n); });
+      a.append(el("em", null, p.name + " ›"));
+      return a;
+    }
+    function projectCard(p) {
+      var a = link("card", p.url);
+      both("h3", null, p.title).concat(both("p", null, p.text)).forEach(function (n) { a.append(n); });
+      if (p.tags && p.tags.length) {
+        var tags = el("div", "tags");
+        p.tags.forEach(function (t) { tags.append(el("span", "tag", t)); });
+        a.append(tags);
+      }
+      both("span", "more", { de: "Auf GitHub ›", en: "On GitHub ›" }).forEach(function (n) { a.append(n); });
+      return a;
+    }
+
+    fetch("projects.json", { cache: "no-cache" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (data) {
+        var featured = document.getElementById("featured-repos");
+        var grid = document.getElementById("project-cards");
+        data.items.forEach(function (p) {
+          if (p.group === "featured") featured.append(featuredCard(p));
+          else grid.append(projectCard(p));
+        });
+      })
+      .catch(function () {
+        var grid = document.getElementById("project-cards");
+        var a = link("card", "https://github.com/SebastianInTheWild");
+        both("h3", null, { de: "Alle Projekte auf GitHub", en: "All projects on GitHub" }).forEach(function (n) { a.append(n); });
+        grid.append(a);
+      });
   })();
 </script>
 </body>
