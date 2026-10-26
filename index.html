@@ -5,236 +5,287 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SebastianInTheWild</title>
 <meta name="description" content="Projekte von SebastianInTheWild: Home Assistant, Homelab und kleine Helfer für den Alltag.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
+  /* Design-Tokens nach dem Apple Design System (Skill apple-design-system) */
   :root {
-    --bg: #f6f4ee;
-    --surface: #ffffff;
-    --surface-2: #eef1ea;
-    --text: #1d2a21;
-    --muted: #5b6b60;
-    --line: #dde3d9;
-    --accent: #2f6b3d;
-    --accent-2: #57a36a;
-    --accent-soft: #e3efe5;
-    --on-accent: #ffffff;
-    --shadow: 0 1px 2px rgba(29, 42, 33, .06), 0 8px 24px rgba(29, 42, 33, .06);
+    /* Akzent – die einzige interaktive Farbe */
+    --primary: #0066cc;
+    --primary-focus: #0071e3;
+    --primary-on-dark: #2997ff;
+    /* Text */
+    --ink: #1d1d1f;
+    --ink-muted-80: #333333;
+    --ink-muted-48: #7a7a7a;
+    --body-on-dark: #ffffff;
+    --body-muted: #cccccc;
+    /* Flächen */
+    --canvas: #ffffff;
+    --canvas-parchment: #f5f5f7;
+    --surface-pearl: #fafafc;
+    --surface-tile-1: #272729;
+    --surface-tile-2: #2a2a2c;
+    --surface-black: #000000;
+    /* Haarlinien */
+    --hairline: #e0e0e0;
+    --divider-soft: #f0f0f0;
+    --on-primary: #ffffff;
+
+    /* Abstände */
+    --sp-xxs: 4px; --sp-xs: 8px; --sp-sm: 12px; --sp-md: 17px; --sp-lg: 24px;
+    --sp-xl: 32px; --sp-xxl: 48px; --sp-section: 80px;
+    /* Radien */
+    --r-sm: 8px; --r-lg: 18px; --r-pill: 9999px;
+
+    --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, Roboto, sans-serif;
+    --font-display: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Inter, Roboto, sans-serif;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #121814;
-      --surface: #1a221d;
-      --surface-2: #202b24;
-      --text: #e7eee8;
-      --muted: #9fb0a4;
-      --line: #2c3a31;
-      --accent: #7cc48d;
-      --accent-2: #57a36a;
-      --accent-soft: #1f3326;
-      --on-accent: #10180f;
-      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
-    }
-  }
+
   * { box-sizing: border-box; }
   html, body { margin: 0; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--canvas);
+    color: var(--ink);
+    font: 400 17px/1.47 var(--font);
+    letter-spacing: -0.374px;
     -webkit-font-smoothing: antialiased;
   }
-  a { color: var(--accent); }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--primary-focus); outline-offset: 2px; }
 
   /* Sprachumschaltung: nur die gewählte Sprache sichtbar */
-  html[data-lang="de"] [lang="en"], html[data-lang="en"] [lang="de"] { display: none; }
+  html[data-lang="de"] [lang="en"], html[data-lang="en"] [lang="de"] { display: none !important; }
 
-  header.top {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 0;
-  }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; text-decoration: none; color: var(--text); }
-  .brand svg { width: 28px; height: 28px; }
-  .lang {
-    display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--surface);
-  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 var(--sp-lg); }
+
+  /* Globale Navigation – dünn, schwarz */
+  .global-nav { background: var(--surface-black); color: var(--body-on-dark); position: sticky; top: 0; z-index: 10; }
+  .global-nav .wrap { height: 44px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: var(--sp-xs); color: var(--body-on-dark); font-size: 14px; font-weight: 600; letter-spacing: -0.224px; }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: 26px; height: 26px; border-radius: 50%; background: var(--surface-tile-2); }
+  .lang { display: inline-flex; gap: 2px; padding: 2px; border-radius: var(--r-pill); background: var(--surface-tile-1); }
   .lang button {
-    border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 14px; font-weight: 600;
-    padding: 6px 14px; cursor: pointer;
+    border: 0; background: transparent; color: var(--body-muted); font: 400 12px/1 var(--font);
+    letter-spacing: -0.12px; padding: 6px 12px; border-radius: var(--r-pill); cursor: pointer;
   }
-  .lang button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+  .lang button[aria-pressed="true"] { background: var(--canvas); color: var(--ink); font-weight: 600; }
 
-  .hero { padding: 48px 0 40px; }
-  .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; margin: 0 0 16px; letter-spacing: -.5px; }
-  .hero h1 em { font-style: normal; color: var(--accent); }
-  .hero p { font-size: 1.15rem; color: var(--muted); max-width: 640px; margin: 0; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-  .chip {
-    font-size: 13px; font-weight: 600; color: var(--accent); background: var(--accent-soft);
-    padding: 4px 12px; border-radius: 999px;
+  /* Kacheln – randlos, der Farbwechsel ist der Trenner */
+  .tile { padding: var(--sp-section) 0; text-align: center; }
+  .tile-light { background: var(--canvas); }
+  .tile-parchment { background: var(--canvas-parchment); }
+  .tile-dark { background: var(--surface-tile-1); color: var(--body-on-dark); }
+  .tile-dark a { color: var(--primary-on-dark); }
+
+  .eyebrow { font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px; margin: 0 0 var(--sp-xs); }
+  .hero-title {
+    font: 600 56px/1.07 var(--font-display); letter-spacing: -0.28px; margin: 0 auto var(--sp-md); max-width: 820px;
   }
+  .display { font: 600 40px/1.1 var(--font-display); letter-spacing: 0; margin: 0 0 var(--sp-xs); }
+  .lead { font-size: 28px; font-weight: 400; line-height: 1.14; letter-spacing: 0.196px; margin: 0 auto; max-width: 720px; }
+  .tile-dark .lead { color: var(--body-muted); }
+  .sub { color: var(--ink-muted-80); max-width: 640px; margin: var(--sp-md) auto 0; }
 
-  h2 { font-size: 1.4rem; margin: 48px 0 16px; letter-spacing: -.2px; }
-
-  .feature {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow);
-    padding: 28px; display: grid; gap: 24px; grid-template-columns: 1.1fr 1fr;
+  /* Pill-CTAs */
+  .ctas { display: flex; flex-wrap: wrap; gap: var(--sp-sm); justify-content: center; margin-top: var(--sp-lg); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-xs);
+    padding: 11px 22px; border-radius: var(--r-pill); font: 400 17px/1.24 var(--font); letter-spacing: -0.374px;
+    border: 1px solid var(--primary); transition: transform .15s ease-out;
   }
-  .feature h3 { margin: 0 0 8px; font-size: 1.5rem; }
-  .feature p { margin: 0 0 16px; color: var(--muted); }
-  .feature ul { margin: 0; padding-left: 20px; color: var(--muted); }
-  .feature ul li { margin: 4px 0; }
-  .repos { display: grid; gap: 10px; align-content: start; }
+  .btn:hover { text-decoration: none; }
+  .btn:active { transform: scale(0.95); }
+  .btn-primary { background: var(--primary); color: var(--on-primary); }
+  .btn-secondary { background: transparent; color: var(--primary); }
+  .tile-dark .btn-primary { color: var(--on-primary); }
+  .tile-dark .btn-secondary { color: var(--primary-on-dark); border-color: var(--primary-on-dark); }
+
+  /* Hauptprojekt (dunkle Kachel) */
+  .features {
+    list-style: none; padding: 0; margin: var(--sp-xl) auto 0; max-width: 820px;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-sm) var(--sp-lg); text-align: left;
+  }
+  .features li { color: var(--body-muted); padding-left: 22px; position: relative; }
+  .features li::before { content: "✓"; position: absolute; left: 0; color: var(--body-on-dark); font-weight: 600; }
+
+  .repos { margin-top: var(--sp-xxl); display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-sm); text-align: left; }
   .repo {
-    display: flex; gap: 12px; align-items: flex-start; text-decoration: none; color: var(--text);
-    background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px;
-    transition: border-color .15s, transform .15s;
+    display: block; background: var(--surface-tile-2); border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: var(--r-lg); padding: var(--sp-lg); color: var(--body-on-dark); transition: transform .15s ease-out;
   }
-  .repo:hover { border-color: var(--accent-2); transform: translateY(-1px); }
-  .repo strong { display: block; font-size: 15px; }
-  .repo span { font-size: 13px; color: var(--muted); }
-  .ico {
-    flex: none; width: 36px; height: 36px; border-radius: 10px; background: var(--accent-soft); color: var(--accent);
-    display: grid; place-items: center;
-  }
-  .ico svg { width: 20px; height: 20px; }
+  .tile-dark .repo { color: var(--body-on-dark); }
+  .repo:hover { text-decoration: none; }
+  .repo:active { transform: scale(0.98); }
+  .repo strong { display: block; font-weight: 600; letter-spacing: -0.374px; }
+  .repo span { display: block; margin-top: var(--sp-xxs); font-size: 14px; line-height: 1.43; letter-spacing: -0.224px; color: var(--body-muted); }
+  .repo em { display: block; margin-top: var(--sp-sm); font-style: normal; font-size: 14px; letter-spacing: -0.224px; color: var(--primary-on-dark); }
 
-  .grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+  /* Weitere Projekte – Utility-Karten */
+  .grid { margin-top: var(--sp-xxl); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-lg); text-align: left; }
   .card {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow);
-    padding: 22px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: var(--text);
-    transition: border-color .15s, transform .15s;
+    display: flex; flex-direction: column; gap: var(--sp-xs); background: var(--canvas); border: 1px solid var(--hairline);
+    border-radius: var(--r-lg); padding: var(--sp-lg); color: var(--ink); transition: transform .15s ease-out;
   }
-  .card:hover { border-color: var(--accent-2); transform: translateY(-2px); }
-  .card h3 { margin: 0; font-size: 1.1rem; }
-  .card p { margin: 0; color: var(--muted); font-size: 15px; flex: 1; }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; }
-
-  footer {
-    margin-top: 64px; padding: 28px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px;
-    display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between;
+  .card:hover { text-decoration: none; }
+  .card:active { transform: scale(0.98); }
+  .card h3 { margin: 0; font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px; }
+  .card p { margin: 0; color: var(--ink-muted-80); flex: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: var(--sp-xxs); margin-top: var(--sp-xs); }
+  .tag {
+    font-size: 14px; letter-spacing: -0.224px; color: var(--ink-muted-80); background: var(--canvas-parchment);
+    border-radius: var(--r-pill); padding: 2px var(--sp-xs);
   }
+  .more { font-size: 17px; color: var(--primary); margin-top: var(--sp-xs); }
 
-  @media (max-width: 860px) {
-    .feature { grid-template-columns: 1fr; padding: 22px; }
+  /* Footer */
+  footer { background: var(--canvas-parchment); border-top: 1px solid var(--hairline); padding: var(--sp-xl) 0 var(--sp-xxl); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: var(--sp-sm); justify-content: space-between; font-size: 12px; letter-spacing: -0.12px; color: var(--ink-muted-48); }
+  footer a { font-size: 12px; }
+
+  /* Responsiv nach den Apple-Breakpoints */
+  @media (max-width: 1068px) { .hero-title { font-size: 40px; line-height: 1.1; } }
+  @media (max-width: 833px) {
     .grid { grid-template-columns: 1fr; }
-    .hero { padding: 24px 0 16px; }
+    .repos, .features { grid-template-columns: 1fr; }
   }
+  @media (max-width: 640px) {
+    .tile { padding: var(--sp-xxl) 0; }
+    .hero-title { font-size: 34px; }
+    .display { font-size: 34px; }
+    .lead { font-size: 21px; line-height: 1.19; }
+  }
+  @media (max-width: 419px) { .hero-title { font-size: 28px; } }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="top">
+<nav class="global-nav">
+  <div class="wrap">
     <a class="brand" href="#">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 4 26h24z" fill="#2f6b3d"/><path d="M16 11 9 26h14z" fill="#57a36a"/><rect x="14.5" y="26" width="3" height="4" rx="1" fill="#6b4f3a"/></svg>
+      <img src="apple-touch-icon.png" alt="" width="26" height="26">
       SebastianInTheWild
     </a>
     <div class="lang" role="group" aria-label="Sprache / Language">
       <button type="button" data-set-lang="de" aria-pressed="true">DE</button>
       <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
     </div>
-  </header>
+  </div>
+</nav>
 
-  <section class="hero">
-    <h1>
-      <span lang="de">Smart Home, Homelab &amp; <em>kleine Helfer</em> für den Alltag.</span>
-      <span lang="en">Smart home, homelab &amp; <em>little helpers</em> for everyday life.</span>
-    </h1>
-    <p lang="de">Hier sammle ich meine Open-Source-Projekte rund um Home Assistant und mein Homelab. Alles entsteht für den eigenen Haushalt und darf gern nachgebaut werden.</p>
-    <p lang="en">A collection of my open-source projects around Home Assistant and my homelab. Everything is built for my own household – feel free to use it in yours.</p>
-    <div class="chips">
-      <span class="chip">Home Assistant</span>
-      <span class="chip">HACS</span>
-      <span class="chip">Python</span>
-      <span class="chip">JavaScript</span>
-      <span class="chip">Docker</span>
+<main>
+  <section class="tile tile-light">
+    <div class="wrap">
+      <p class="eyebrow" lang="de">Open Source für zu Hause</p>
+      <p class="eyebrow" lang="en">Open source for the home</p>
+      <h1 class="hero-title">
+        <span lang="de">Smart Home, Homelab und kleine Helfer für den Alltag.</span>
+        <span lang="en">Smart home, homelab and little helpers for everyday life.</span>
+      </h1>
+      <p class="lead" lang="de">Gebaut für den eigenen Haushalt. Zum Nachbauen für deinen.</p>
+      <p class="lead" lang="en">Built for my own household. Ready for yours.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#unser-zuhause"><span lang="de">Projekte ansehen</span><span lang="en">See projects</span></a>
+        <a class="btn btn-secondary" href="https://github.com/SebastianInTheWild"><span lang="de">Auf GitHub</span><span lang="en">On GitHub</span></a>
+      </div>
     </div>
   </section>
 
-  <h2><span lang="de">Hauptprojekt</span><span lang="en">Main project</span></h2>
-  <section class="feature">
-    <div>
-      <h3>Unser Zuhause</h3>
-      <p lang="de">Ein komplettes Home-Assistant-Dashboard, das sich selbst aus deinen Räumen, Etagen und Geräten aufbaut – im Bubble-Card-Design, mit eigenem Einstellungsmenü statt YAML.</p>
-      <p lang="en">A complete Home Assistant dashboard that builds itself from your areas, floors and devices – in Bubble Card style, with its own settings menu instead of YAML.</p>
-      <ul lang="de">
+  <section class="tile tile-dark" id="unser-zuhause">
+    <div class="wrap">
+      <p class="eyebrow" lang="de">Hauptprojekt</p>
+      <p class="eyebrow" lang="en">Main project</p>
+      <h2 class="display">Unser Zuhause</h2>
+      <p class="lead" lang="de">Ein Home-Assistant-Dashboard, das sich selbst aus deinen Räumen und Geräten aufbaut.</p>
+      <p class="lead" lang="en">A Home Assistant dashboard that builds itself from your rooms and devices.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="https://github.com/SebastianInTheWild/ha-unser-zuhause"><span lang="de">Installieren über HACS</span><span lang="en">Install via HACS</span></a>
+        <a class="btn btn-secondary" href="https://github.com/SebastianInTheWild/ha-unser-zuhause#readme"><span lang="de">Mehr erfahren</span><span lang="en">Learn more</span></a>
+      </div>
+      <ul class="features" lang="de">
         <li>Energiefluss live und für heute, Wochenbilanz</li>
-        <li>Räume, Kameras mit Bewegungs-Hinweis, Batterien, Müll</li>
-        <li>System-Seite mit Health-Score, Updates und „Zombie“-Aufräumen</li>
-        <li>Hausmodus, Push an Personen statt an Geräte</li>
-        <li>Installation über HACS</li>
+        <li>Räume, Kameras mit Bewegungs-Hinweis</li>
+        <li>Batterien, Müll, „Was ist los?“</li>
+        <li>System-Seite mit Health-Score und Aufräumen</li>
+        <li>Hausmodus, Push an Personen statt Geräte</li>
+        <li>Einstellungen per Menü statt YAML</li>
       </ul>
-      <ul lang="en">
+      <ul class="features" lang="en">
         <li>Live and daily energy flow, weekly balance</li>
-        <li>Rooms, cameras with motion hints, batteries, waste collection</li>
-        <li>System page with health score, updates and “zombie” cleanup</li>
-        <li>House mode, push notifications to people instead of devices</li>
-        <li>Install via HACS</li>
+        <li>Rooms, cameras with motion hints</li>
+        <li>Batteries, waste collection, “what’s up?”</li>
+        <li>System page with health score and cleanup</li>
+        <li>House mode, push to people instead of devices</li>
+        <li>Settings via menu instead of YAML</li>
       </ul>
-    </div>
-    <div class="repos">
-      <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause">
-        <div class="ico"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h8v8H3zm10 0h8v5h-8zM3 13h8v8H3zm10-3h8v11h-8z"/></svg></div>
-        <div><strong>ha-unser-zuhause</strong>
-          <span lang="de">Dashboard-Strategy – baut die Ansichten automatisch</span>
-          <span lang="en">Dashboard strategy – generates the views automatically</span></div>
-      </a>
-      <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause-cards">
-        <div class="ico"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2v10h14V7z"/></svg></div>
-        <div><strong>ha-unser-zuhause-cards</strong>
-          <span lang="de">Karten: Energie, Kameras, System, Batterien …</span>
-          <span lang="en">Cards: energy, cameras, system, batteries …</span></div>
-      </a>
-      <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause-integration">
-        <div class="ico"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 2 12h3v8h6v-6h2v6h6v-8h3z"/></svg></div>
-        <div><strong>ha-unser-zuhause-integration</strong>
-          <span lang="de">Integration: Status-Sensoren, Hausmodus, Push</span>
-          <span lang="en">Integration: status sensors, house mode, push</span></div>
-      </a>
-      <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause-blueprints">
-        <div class="ico"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h10l4 4v14H5zm9 1.5V8h3.5zM8 12h8v1.5H8zm0 3h8v1.5H8z"/></svg></div>
-        <div><strong>ha-unser-zuhause-blueprints</strong>
-          <span lang="de">Blueprints: Systemwarnungen, Abwesenheits-Check</span>
-          <span lang="en">Blueprints: system warnings, away check</span></div>
-      </a>
+      <div class="repos">
+        <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause">
+          <strong>Dashboard-Strategy</strong>
+          <span lang="de">Baut die Ansichten automatisch.</span><span lang="en">Generates the views automatically.</span>
+          <em>ha-unser-zuhause ›</em>
+        </a>
+        <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause-cards">
+          <strong lang="de">Karten</strong><strong lang="en">Cards</strong>
+          <span lang="de">Energie, Kameras, System, Batterien.</span><span lang="en">Energy, cameras, system, batteries.</span>
+          <em>ha-unser-zuhause-cards ›</em>
+        </a>
+        <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause-integration">
+          <strong>Integration</strong>
+          <span lang="de">Status-Sensoren, Hausmodus, Push.</span><span lang="en">Status sensors, house mode, push.</span>
+          <em>ha-unser-zuhause-integration ›</em>
+        </a>
+        <a class="repo" href="https://github.com/SebastianInTheWild/ha-unser-zuhause-blueprints">
+          <strong>Blueprints</strong>
+          <span lang="de">Systemwarnungen, Abwesenheits-Check.</span><span lang="en">System warnings, away check.</span>
+          <em>ha-unser-zuhause-blueprints ›</em>
+        </a>
+      </div>
     </div>
   </section>
 
-  <h2><span lang="de">Weitere Projekte</span><span lang="en">More projects</span></h2>
-  <section class="grid">
-    <a class="card" href="https://github.com/SebastianInTheWild/HA-Teams-busy-light">
-      <div class="ico"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2zM9 20h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg></div>
-      <h3>Teams Busy Light</h3>
-      <p lang="de">Zeigt den Microsoft-Teams-Status in Home Assistant und macht jede Lampe zum Besetzt-Licht – ohne Graph API und ohne Admin-Freigabe.</p>
-      <p lang="en">Shows your Microsoft Teams status in Home Assistant and turns any light into a busy light – no Graph API, no admin consent.</p>
-      <div class="tags"><span class="tag">HACS</span><span class="tag">Home Assistant</span><span class="tag">Windows · macOS</span></div>
-    </a>
-    <a class="card" href="https://github.com/SebastianInTheWild/homepage-agent">
-      <div class="ico"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h16v4H4zm0 6h16v4H4zm0 6h16v4H4zm2-11v2h2V5zm0 6v2h2v-2zm0 6v2h2v-2z"/></svg></div>
-      <h3>Homepage-Agent</h3>
-      <p lang="de">Gleicht das Homelab mit dem Homepage-Dashboard ab und fragt in Slack nach, ob fehlende Dienste eingetragen werden sollen.</p>
-      <p lang="en">Compares the homelab with the Homepage dashboard and asks in Slack whether missing services should be added.</p>
-      <div class="tags"><span class="tag">Python</span><span class="tag">Slack</span><span class="tag">Docker</span></div>
-    </a>
-    <a class="card" href="https://github.com/SebastianInTheWild/App_for_Family_Wichteln">
-      <div class="ico"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 7h-2.18A3 3 0 0 0 12 4.76 3 3 0 0 0 6.18 7H4a1 1 0 0 0-1 1v3h8V7h2v4h8V8a1 1 0 0 0-1-1zM9 7a1 1 0 1 1 1-1v1zm5 0V6a1 1 0 1 1 1 1zM4 13v7a1 1 0 0 0 1 1h6v-8zm9 8h6a1 1 0 0 0 1-1v-7h-7z"/></svg></div>
-      <h3 lang="de">Wichtel-App</h3><h3 lang="en">Secret Santa app</h3>
-      <p lang="de">Kleine Web-App für die jährliche Wichtel-Auslosung: Gruppen, Haushalte, lustige E-Mails und Erinnerungen nach Zeitplan.</p>
-      <p lang="en">Small web app for the yearly Secret Santa draw: groups, households, fun e-mails and scheduled reminders.</p>
-      <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">SQLite</span></div>
-    </a>
+  <section class="tile tile-parchment">
+    <div class="wrap">
+      <h2 class="display"><span lang="de">Weitere Projekte</span><span lang="en">More projects</span></h2>
+      <p class="lead" lang="de">Kleine Werkzeuge, die im Alltag mitlaufen.</p>
+      <p class="lead" lang="en">Small tools that run quietly in the background.</p>
+      <div class="grid">
+        <a class="card" href="https://github.com/SebastianInTheWild/HA-Teams-busy-light">
+          <h3>Teams Busy Light</h3>
+          <p lang="de">Zeigt den Microsoft-Teams-Status in Home Assistant und macht jede Lampe zum Besetzt-Licht – ohne Graph API und Admin-Freigabe.</p>
+          <p lang="en">Shows your Microsoft Teams status in Home Assistant and turns any light into a busy light – no Graph API, no admin consent.</p>
+          <div class="tags"><span class="tag">HACS</span><span class="tag">Windows · macOS</span></div>
+          <span class="more" lang="de">Auf GitHub ›</span><span class="more" lang="en">On GitHub ›</span>
+        </a>
+        <a class="card" href="https://github.com/SebastianInTheWild/homepage-agent">
+          <h3>Homepage-Agent</h3>
+          <p lang="de">Gleicht das Homelab mit dem Homepage-Dashboard ab und fragt in Slack nach, ob fehlende Dienste eingetragen werden sollen.</p>
+          <p lang="en">Compares the homelab with the Homepage dashboard and asks in Slack whether missing services should be added.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Slack</span><span class="tag">Docker</span></div>
+          <span class="more" lang="de">Auf GitHub ›</span><span class="more" lang="en">On GitHub ›</span>
+        </a>
+        <a class="card" href="https://github.com/SebastianInTheWild/App_for_Family_Wichteln">
+          <h3 lang="de">Wichtel-App</h3><h3 lang="en">Secret Santa app</h3>
+          <p lang="de">Web-App für die jährliche Wichtel-Auslosung: Gruppen, Haushalte, lustige E-Mails und Erinnerungen nach Zeitplan.</p>
+          <p lang="en">Web app for the yearly Secret Santa draw: groups, households, fun e-mails and scheduled reminders.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span></div>
+          <span class="more" lang="de">Auf GitHub ›</span><span class="more" lang="en">On GitHub ›</span>
+        </a>
+      </div>
+    </div>
   </section>
+</main>
 
-  <footer>
+<footer>
+  <div class="wrap">
     <span>© 2026 SebastianInTheWild · <span lang="de">Projekte unter MIT-Lizenz</span><span lang="en">Projects under the MIT license</span></span>
     <a href="https://github.com/SebastianInTheWild">github.com/SebastianInTheWild</a>
-  </footer>
+  </div>
+</footer>
 
-</div>
 <script>
   (function () {
     var root = document.documentElement;
