@@ -18,7 +18,7 @@
         "JavaScript",
         "HACS"
       ],
-      "pushed_at": "2026-10-26T12:37:51Z"
+      "pushed_at": "2026-10-26T12:48:52Z"
     },
     {
       "name": "ha-unser-zuhause-cards",
@@ -37,7 +37,7 @@
         "JavaScript",
         "HACS"
       ],
-      "pushed_at": "2026-10-26T12:37:55Z"
+      "pushed_at": "2026-10-26T12:44:38Z"
     },
     {
       "name": "ha-unser-zuhause-integration",
@@ -56,7 +56,7 @@
         "Python",
         "HACS"
       ],
-      "pushed_at": "2026-10-26T12:37:58Z"
+      "pushed_at": "2026-10-26T12:53:36Z"
     },
     {
       "name": "ha-unser-zuhause-blueprints",
@@ -74,7 +74,7 @@
       "tags": [
         "Blueprints"
       ],
-      "pushed_at": "2026-10-26T12:38:02Z"
+      "pushed_at": "2026-10-26T16:54:39Z"
     },
     {
       "name": "HA-Teams-busy-light",
@@ -133,6 +133,26 @@
         "Flask"
       ],
       "pushed_at": "2026-10-23T10:00:15Z"
+    },
+    {
+      "name": "ha-unser-zuhause-agents",
+      "url": "https://github.com/SebastianInTheWild/ha-unser-zuhause-agents",
+      "group": "featured",
+      "order": 100,
+      "title": {
+        "de": "ha-unser-zuhause-agents",
+        "en": "ha-unser-zuhause-agents"
+      },
+      "text": {
+        "de": "Home-Assistant-Add-on: KI-Agenten (Claude Code), die nach Zeitplan Automationen sortieren, das Fehlerprotokoll auswerten, Energie-Tipps geben und Automationen prüfen.",
+        "en": "Home-Assistant-Add-on: KI-Agenten (Claude Code), die nach Zeitplan Automationen sortieren, das Fehlerprotokoll auswerten, Energie-Tipps geben und Automationen prüfen."
+      },
+      "tags": [
+        "JavaScript",
+        "ai-agents",
+        "automation"
+      ],
+      "pushed_at": "2026-10-27T09:40:10Z"
     }
   ]
 }
